@@ -20,3 +20,16 @@ npm run package   # erzeugt ekips-prime-pro-<version>.vsix
 
 Drücke in VS Code <kbd>F5</kbd>, um ein Entwicklungsfenster mit geladener
 Erweiterung zu starten.
+
+## Einstellungen
+
+| Einstellung | Standard | Beschreibung |
+|---|---|---|
+| `ekips.lsp.enabled` | `true` | Den Sprachserver `ekips-lsp` starten. |
+| `ekips.lsp.path` | `""` | Pfad zu `ekips-lsp`. Leer = im `PATH` und in `~/.cargo/bin` suchen. Siehe [Sprachserver](language-server.md). |
+| `ekips.cli.path` | `""` | Pfad zum Kommandozeilenprogramm `ekips`. Leer = im `PATH` und in `~/.cargo/bin` suchen. |
+| `ekips.messages.language` | `"auto"` | Sprache der Compiler-Meldungen: `auto` (Anzeigesprache von VS Code), `en`, `de`. |
+| `ekips.trace.server` | `"off"` | LSP-Kommunikation mitschreiben: `off`, `messages`, `verbose`. |
+
+Die Oberfläche der Erweiterung (Befehle, Meldungen) gibt es auf Deutsch und
+Englisch; sie folgt der Anzeigesprache von VS Code.

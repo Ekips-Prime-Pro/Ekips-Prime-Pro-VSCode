@@ -1,7 +1,7 @@
 {
   "name": "ekips-prime-pro",
-  "displayName": "Ekips Prime Pro",
-  "description": "Language support for Ekips Prime Pro (.ekips), the robot language for the LEGO SPIKE Prime hub.",
+  "displayName": "%displayName%",
+  "description": "%description%",
   "version": "0.1.0",
   "publisher": "ekips-prime-pro",
   "license": "MIT",
@@ -63,7 +63,141 @@
         "language": "ekips",
         "path": "./snippets/ekips.code-snippets"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "ekips.checkFile",
+        "title": "%command.checkFile%",
+        "category": "Ekips",
+        "icon": "$(check)"
+      },
+      {
+        "command": "ekips.simulate",
+        "title": "%command.simulate%",
+        "category": "Ekips",
+        "icon": "$(play)"
+      },
+      {
+        "command": "ekips.uploadToHub",
+        "title": "%command.uploadToHub%",
+        "category": "Ekips",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "ekips.restartLanguageServer",
+        "title": "%command.restartLanguageServer%",
+        "category": "Ekips"
+      },
+      {
+        "command": "ekips.createCopilotInstructions",
+        "title": "%command.createCopilotInstructions%",
+        "category": "Ekips"
+      },
+      {
+        "command": "ekips.showMenu",
+        "title": "%command.showMenu%",
+        "category": "Ekips"
+      },
+      {
+        "command": "ekips.openSettings",
+        "title": "%command.openSettings%",
+        "category": "Ekips"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "ekips.checkFile",
+          "when": "editorLangId == ekips",
+          "group": "navigation@1"
+        },
+        {
+          "command": "ekips.simulate",
+          "when": "editorLangId == ekips",
+          "group": "navigation@2"
+        },
+        {
+          "command": "ekips.uploadToHub",
+          "when": "editorLangId == ekips",
+          "group": "navigation@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "ekips.checkFile",
+          "when": "resourceExtname == .ekips",
+          "group": "ekips@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ekips.checkFile",
+          "when": "editorLangId == ekips",
+          "group": "ekips@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ekips.checkFile",
+          "when": "editorLangId == ekips"
+        },
+        {
+          "command": "ekips.simulate",
+          "when": "editorLangId == ekips"
+        },
+        {
+          "command": "ekips.uploadToHub",
+          "when": "editorLangId == ekips"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Ekips Prime Pro",
+      "properties": {
+        "ekips.lsp.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.lsp.enabled%"
+        },
+        "ekips.lsp.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "markdownDescription": "%config.lsp.path%"
+        },
+        "ekips.cli.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "markdownDescription": "%config.cli.path%"
+        },
+        "ekips.messages.language": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "en",
+            "de"
+          ],
+          "enumDescriptions": [
+            "%config.messages.language.auto%",
+            "English",
+            "Deutsch"
+          ],
+          "default": "auto",
+          "description": "%config.messages.language%"
+        },
+        "ekips.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "%config.trace.server%"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile -- --production",
@@ -89,5 +223,6 @@
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
-  }
+  },
+  "l10n": "./l10n"
 }
