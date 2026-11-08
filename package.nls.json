@@ -1,0 +1,17 @@
+{
+  "displayName": "Ekips Prime Pro",
+  "description": "Language support for Ekips Prime Pro (.ekips), the robot language for the LEGO SPIKE Prime hub.",
+  "command.checkFile": "Check File",
+  "command.simulate": "Simulate",
+  "command.uploadToHub": "Upload to Hub",
+  "command.restartLanguageServer": "Restart Language Server",
+  "command.createCopilotInstructions": "Add Copilot Instructions to Project",
+  "command.showMenu": "Show Menu",
+  "command.openSettings": "Open Settings",
+  "config.lsp.enabled": "Start the Ekips language server (error checking, autocomplete, hover help).",
+  "config.lsp.path": "Path to the `ekips-lsp` program from [Ekips Prime Pro Tools](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Tools). Leave empty to search the `PATH` and `~/.cargo/bin`. Relative paths are resolved against the first workspace folder.",
+  "config.cli.path": "Path to the `ekips` command-line program (used by **Ekips: Check File**). Leave empty to search the `PATH` and `~/.cargo/bin`.",
+  "config.messages.language": "Language of error messages from the compiler and the language server.",
+  "config.messages.language.auto": "Same as the VS Code display language",
+  "config.trace.server": "Log the communication with the language server in the output panel (for debugging)."
+}

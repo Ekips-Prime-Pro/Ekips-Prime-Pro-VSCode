@@ -1,0 +1,54 @@
+// SYNTAX TEST "source.ekips" "numbers with unit suffixes"
+
+robot.drive(20cm)
+//          ^^ constant.numeric.length.ekips constant.numeric.decimal.ekips
+//            ^^ constant.numeric.length.ekips keyword.other.unit.length.ekips
+
+const wheel = 56mm
+//            ^^ constant.numeric.decimal.ekips
+//              ^^ keyword.other.unit.length.ekips
+
+robot.turn(90deg)
+//         ^^ constant.numeric.angle.ekips constant.numeric.decimal.ekips
+//           ^^^ constant.numeric.angle.ekips keyword.other.unit.angle.ekips
+
+robot.turn(90°)
+//         ^^ constant.numeric.decimal.ekips
+//           ^ keyword.other.unit.angle.ekips
+
+arm.rotate(1.5rot)
+//         ^^^ constant.numeric.angle.ekips constant.numeric.decimal.ekips
+//            ^^^ keyword.other.unit.angle.ekips
+
+wait(2s)
+//   ^ constant.numeric.time.ekips constant.numeric.decimal.ekips
+//    ^ constant.numeric.time.ekips keyword.other.unit.time.ekips
+
+wait(300ms)
+//   ^^^ constant.numeric.decimal.ekips
+//      ^^ keyword.other.unit.time.ekips
+
+robot.run(50%)
+//        ^^ constant.numeric.percent.ekips constant.numeric.decimal.ekips
+//          ^ constant.numeric.percent.ekips keyword.other.unit.percent.ekips
+
+x = 10 % 3
+//  ^^ constant.numeric.decimal.ekips
+//     ^ keyword.operator.arithmetic.ekips
+//     ^ - keyword.other.unit.percent.ekips
+
+x = 10%3
+//  ^^ constant.numeric.decimal.ekips
+//    ^ keyword.operator.arithmetic.ekips
+//     ^ constant.numeric.decimal.ekips
+
+x %= 2
+//^^ keyword.operator.assignment.compound.ekips
+
+robot.drive(20km)
+//          ^^ constant.numeric.decimal.ekips
+//            ^^ invalid.illegal.unit.ekips
+
+x = 42
+//  ^^ constant.numeric.decimal.ekips
+//  ^^ - keyword.other.unit.length.ekips

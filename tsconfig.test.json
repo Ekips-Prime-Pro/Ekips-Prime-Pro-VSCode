@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "out",
+    "noEmit": false,
+    "sourceMap": true
+  },
+  "include": ["test/unit", "src/checkOutput.ts", "src/binary.ts"]
+}

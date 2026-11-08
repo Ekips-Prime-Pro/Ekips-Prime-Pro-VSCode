@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Compile
+        run: npm run compile
+
+      - name: Test
+        run: npm test
+
+      - name: Package .vsix
+        run: npm run package -- --out ekips-prime-pro.vsix
+
+      - name: Upload .vsix
+        uses: actions/upload-artifact@v4
+        with:
+          name: ekips-prime-pro-vsix
+          path: ekips-prime-pro.vsix
+          if-no-files-found: error
