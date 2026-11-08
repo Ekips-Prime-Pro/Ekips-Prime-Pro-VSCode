@@ -1,0 +1,102 @@
+// SYNTAX TEST "source.ekips" "keywords, strings, comments, constants and builtins"
+
+// a line comment
+// <- comment.line.double-slash.ekips punctuation.definition.comment.ekips
+//^^^^^^^^^^^^^^^ comment.line.double-slash.ekips
+
+/* a block
+   comment */
+// <- comment.block.ekips
+// ^^^^^^^ comment.block.ekips
+
+const leftWheel = new Motor(Port.A);
+// <- storage.type.const.ekips
+//    ^^^^^^^^^ variable.other.constant.ekips
+//                ^^^ keyword.operator.new.ekips
+//                    ^^^^^ support.class.ekips
+//                          ^^^^ support.class.ekips
+//                              ^ punctuation.accessor.ekips
+//                               ^ constant.other.port.ekips
+
+let count = 0;
+// <- storage.type.let.ekips
+//  ^^^^^ variable.other.readwrite.ekips
+
+const robot = new DriveBase(leftWheel, rightWheel, 56mm, 112mm);
+//                ^^^^^^^^^ support.class.ekips
+
+async function square(side, speed) {
+// <- storage.modifier.async.ekips
+//    ^^^^^^^^ storage.type.function.ekips
+//             ^^^^^^ entity.name.function.ekips
+//                    ^^^^ variable.parameter.ekips
+//                          ^^^^^ variable.parameter.ekips
+  for (let i = 0; i < 4; i++) {
+//^^^ keyword.control.loop.ekips
+//                        ^^ keyword.operator.increment.ekips
+    await robot.drive(side);
+//  ^^^^^ keyword.control.flow.ekips
+//              ^^^^^ support.function.method.ekips
+  }
+}
+
+if (eye.sees(Color.Black)) {
+// <- keyword.control.conditional.ekips
+//      ^^^^ support.function.method.ekips
+//           ^^^^^ support.class.ekips
+//                 ^^^^^ constant.other.color.ekips
+  hub.show("R\n");
+//^^^ support.variable.hub.ekips
+//    ^^^^ support.function.method.ekips
+//         ^^^^^ string.quoted.double.ekips
+//           ^^ constant.character.escape.ekips
+} else {
+//^^^^ keyword.control.conditional.ekips
+  console.log('hi');
+//^^^^^^^ support.class.ekips
+//        ^^^ support.function.method.ekips
+//            ^^^^ string.quoted.single.ekips
+}
+
+await Promise.race([
+//    ^^^^^^^ support.class.ekips
+//            ^^^^ support.function.method.ekips
+  robot.drive(100cm),
+  waitUntil(() => eye.sees(Color.Black)),
+//^^^^^^^^^ support.function.ekips
+//             ^^ storage.type.function.arrow.ekips
+]);
+
+while (sonar.distance > 10cm) {
+// <- keyword.control.loop.ekips
+//           ^^^^^^^^ support.variable.property.ekips
+//                    ^ keyword.operator.relational.ekips
+}
+
+for (const mission of missions) {
+//                 ^^ keyword.control.loop.ekips
+  await mission();
+//      ^^^^^^^ entity.name.function.ekips
+}
+
+const done = true && !false || null === undefined;
+//           ^^^^ constant.language.boolean.ekips
+//                ^^ keyword.operator.logical.ekips
+//                    ^^^^^ constant.language.boolean.ekips
+//                             ^^^^ constant.language.null.ekips
+//                                  ^^^ keyword.operator.comparison.ekips
+//                                      ^^^^^^^^^ constant.language.undefined.ekips
+
+const r = Math.round(Math.PI);
+//             ^^^^^ support.function.method.ekips
+//                        ^^ support.constant.math.ekips
+
+var old = 1;
+// <- invalid.illegal.keyword.ekips
+
+const forward = 1;
+//    ^^^^^^^ variable.other.constant.ekips
+//    ^^^ - keyword.control.loop.ekips
+
+x.new
+//^^^ variable.other.property.ekips

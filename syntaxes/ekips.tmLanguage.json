@@ -1,0 +1,529 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Ekips Prime Pro",
+  "scopeName": "source.ekips",
+  "fileTypes": [
+    "ekips"
+  ],
+  "patterns": [
+    {
+      "include": "#code"
+    }
+  ],
+  "repository": {
+    "code": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#constants"
+        },
+        {
+          "include": "#function-declaration"
+        },
+        {
+          "include": "#variable-declaration"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#builtins"
+        },
+        {
+          "include": "#members"
+        },
+        {
+          "include": "#function-call"
+        },
+        {
+          "include": "#operators"
+        },
+        {
+          "include": "#punctuation"
+        },
+        {
+          "include": "#identifiers"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.ekips",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.ekips"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.ekips"
+            }
+          }
+        },
+        {
+          "name": "comment.line.double-slash.ekips",
+          "begin": "//",
+          "end": "$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.ekips"
+            }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.ekips",
+          "begin": "\"",
+          "end": "\"|$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.ekips"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.ekips"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-escape"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.ekips",
+          "begin": "'",
+          "end": "'|$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.ekips"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.ekips"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-escape"
+            }
+          ]
+        }
+      ]
+    },
+    "string-escape": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.ekips",
+          "match": "\\\\[nt\\\"'\\\\]"
+        },
+        {
+          "name": "invalid.illegal.escape.ekips",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.length.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(mm|cm)(?![\\w$])",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "keyword.other.unit.length.ekips"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.angle.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(deg|rot)(?![\\w$])",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "keyword.other.unit.angle.ekips"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.angle.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(°)",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "keyword.other.unit.angle.ekips"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.time.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(ms|s)(?![\\w$])",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "keyword.other.unit.time.ekips"
+            }
+          }
+        },
+        {
+          "comment": "50% is a percentage; 10%3, 10%x, 10%(..) and 10%=.. use the remainder operator (same rule as the compiler).",
+          "name": "constant.numeric.percent.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(%)(?![\\w$(=])",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "keyword.other.unit.percent.ekips"
+            }
+          }
+        },
+        {
+          "comment": "Any other letters directly after a number are an unknown unit (20km).",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)([A-Za-z_$][\\w$]*)",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.decimal.ekips"
+            },
+            "2": {
+              "name": "invalid.illegal.unit.ekips"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.decimal.ekips",
+          "match": "(?<![\\w$.])(\\d+(?:\\.\\d+)?)(?![\\w$])"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b(Port)\\s*(\\.)\\s*([A-F])\\b",
+          "captures": {
+            "1": {
+              "name": "support.class.ekips"
+            },
+            "2": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "3": {
+              "name": "constant.other.port.ekips"
+            }
+          }
+        },
+        {
+          "match": "\\b(Color)\\s*(\\.)\\s*(None|Black|Violet|Blue|Azure|Green|Yellow|Red|White)\\b",
+          "captures": {
+            "1": {
+              "name": "support.class.ekips"
+            },
+            "2": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "3": {
+              "name": "constant.other.color.ekips"
+            }
+          }
+        },
+        {
+          "match": "\\b(Math)\\s*(\\.)\\s*(PI)\\b",
+          "captures": {
+            "1": {
+              "name": "support.class.ekips"
+            },
+            "2": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "3": {
+              "name": "support.constant.math.ekips"
+            }
+          }
+        },
+        {
+          "name": "constant.language.boolean.ekips",
+          "match": "(?<![\\w$.])(true|false)(?![\\w$])"
+        },
+        {
+          "name": "constant.language.null.ekips",
+          "match": "(?<![\\w$.])null(?![\\w$])"
+        },
+        {
+          "name": "constant.language.undefined.ekips",
+          "match": "(?<![\\w$.])undefined(?![\\w$])"
+        }
+      ]
+    },
+    "function-declaration": {
+      "begin": "(?<![\\w$.])(?:(async)\\s+)?(function)\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\s*(\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.modifier.async.ekips"
+        },
+        "2": {
+          "name": "storage.type.function.ekips"
+        },
+        "3": {
+          "name": "entity.name.function.ekips"
+        },
+        "4": {
+          "name": "punctuation.definition.parameters.begin.ekips"
+        }
+      },
+      "end": "\\)",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.parameters.end.ekips"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "variable.parameter.ekips",
+          "match": "[A-Za-z_$][A-Za-z0-9_$]*"
+        },
+        {
+          "name": "punctuation.separator.parameter.ekips",
+          "match": ","
+        }
+      ]
+    },
+    "variable-declaration": {
+      "patterns": [
+        {
+          "match": "(?<![\\w$.])(const)\\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.const.ekips"
+            },
+            "2": {
+              "name": "variable.other.constant.ekips"
+            }
+          }
+        },
+        {
+          "match": "(?<![\\w$.])(let)\\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.let.ekips"
+            },
+            "2": {
+              "name": "variable.other.readwrite.ekips"
+            }
+          }
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.ekips",
+          "match": "(?<![\\w$.])(if|else)(?![\\w$])"
+        },
+        {
+          "name": "keyword.control.loop.ekips",
+          "match": "(?<![\\w$.])(for|while|of|break|continue)(?![\\w$])"
+        },
+        {
+          "name": "keyword.control.flow.ekips",
+          "match": "(?<![\\w$.])(return|await)(?![\\w$])"
+        },
+        {
+          "name": "storage.modifier.async.ekips",
+          "match": "(?<![\\w$.])async(?![\\w$])"
+        },
+        {
+          "name": "storage.type.function.ekips",
+          "match": "(?<![\\w$.])function(?![\\w$])"
+        },
+        {
+          "name": "storage.type.ekips",
+          "match": "(?<![\\w$.])(const|let)(?![\\w$])"
+        },
+        {
+          "name": "keyword.operator.new.ekips",
+          "match": "(?<![\\w$.])new(?![\\w$])"
+        },
+        {
+          "comment": "Not part of the language; the compiler explains what to use instead.",
+          "name": "invalid.illegal.keyword.ekips",
+          "match": "(?<![\\w$.])var(?![\\w$])"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "support.class.ekips",
+          "match": "(?<![\\w$.])(Motor|ColorSensor|DistanceSensor|ForceSensor|DriveBase|Port|Color|Promise|Math|console)(?![\\w$])"
+        },
+        {
+          "name": "support.variable.hub.ekips",
+          "match": "(?<![\\w$.])hub(?![\\w$])"
+        },
+        {
+          "name": "support.function.ekips",
+          "match": "(?<![\\w$.])(wait|waitUntil)(?=\\s*\\()"
+        }
+      ]
+    },
+    "members": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(drive|turn|run|stop|rotate|resetAngle|sees|show|beep|resetHeading|resetTimer|all|race|log|abs|min|max|round|floor|ceil|sqrt|random)(?=\\s*\\()",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "2": {
+              "name": "support.function.method.ekips"
+            }
+          }
+        },
+        {
+          "match": "(\\.)\\s*(angle|speed|color|reflection|distance|pressed|force|heading|timer|battery|length|PI)(?![\\w$]|\\s*\\()",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "2": {
+              "name": "support.variable.property.ekips"
+            }
+          }
+        },
+        {
+          "match": "(\\.)\\s*([A-Za-z_$][A-Za-z0-9_$]*)(?=\\s*\\()",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "2": {
+              "name": "entity.name.function.member.ekips"
+            }
+          }
+        },
+        {
+          "match": "(\\.)\\s*([A-Za-z_$][A-Za-z0-9_$]*)",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.ekips"
+            },
+            "2": {
+              "name": "variable.other.property.ekips"
+            }
+          }
+        }
+      ]
+    },
+    "function-call": {
+      "match": "(?<![\\w$.])([A-Za-z_$][A-Za-z0-9_$]*)(?=\\s*\\()",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.ekips"
+        }
+      }
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "storage.type.function.arrow.ekips",
+          "match": "=>"
+        },
+        {
+          "name": "keyword.operator.assignment.compound.ekips",
+          "match": "[-+*/%]="
+        },
+        {
+          "name": "keyword.operator.comparison.ekips",
+          "match": "===|!==|==|!="
+        },
+        {
+          "name": "keyword.operator.relational.ekips",
+          "match": "<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.ekips",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.assignment.ekips",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.increment.ekips",
+          "match": "\\+\\+|--"
+        },
+        {
+          "name": "keyword.operator.arithmetic.ekips",
+          "match": "[-+*/%]"
+        },
+        {
+          "name": "keyword.operator.ternary.ekips",
+          "match": "\\?|:"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.terminator.statement.ekips",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.comma.ekips",
+          "match": ","
+        },
+        {
+          "name": "punctuation.accessor.ekips",
+          "match": "\\."
+        },
+        {
+          "name": "meta.brace.round.ekips",
+          "match": "[()]"
+        },
+        {
+          "name": "meta.brace.square.ekips",
+          "match": "[\\[\\]]"
+        },
+        {
+          "name": "punctuation.definition.block.ekips",
+          "match": "[{}]"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.ekips",
+          "match": "[A-Za-z_$][A-Za-z0-9_$]*"
+        }
+      ]
+    }
+  }
+}

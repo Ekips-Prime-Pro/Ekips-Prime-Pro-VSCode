@@ -49,6 +49,13 @@
           "dark": "./images/file-icon.svg"
         }
       }
+    ],
+    "grammars": [
+      {
+        "language": "ekips",
+        "scopeName": "source.ekips",
+        "path": "./syntaxes/ekips.tmLanguage.json"
+      }
     ]
   },
   "scripts": {
@@ -57,9 +64,10 @@
     "check-types": "tsc --noEmit",
     "watch": "node esbuild.mjs --watch",
     "lint": "eslint .",
-    "test": "npm run test:unit",
+    "test": "npm run test:unit && npm run test:grammar",
     "test:unit": "tsc -p tsconfig.test.json && node --test out/test/unit/",
-    "package": "vsce package --no-dependencies"
+    "package": "vsce package --no-dependencies",
+    "test:grammar": "vscode-tmgrammar-test \"test/grammar/**/*.test.ekips\""
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
