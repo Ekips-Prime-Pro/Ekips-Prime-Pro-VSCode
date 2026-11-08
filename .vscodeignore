@@ -12,3 +12,4 @@ esbuild.mjs
 eslint.config.mjs
 tsconfig*.json
 CLAUDE.md
+.gitignore

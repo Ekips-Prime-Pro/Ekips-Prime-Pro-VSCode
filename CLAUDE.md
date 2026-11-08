@@ -38,7 +38,10 @@
 |---|---|
 | `src/extension.ts` | Activation: language client, commands, status bar |
 | `src/lsp.ts` | Starts `ekips-lsp` via `vscode-languageclient` |
-| `src/cli.ts` | Finds and runs the `ekips` CLI |
+| `src/cli.ts` | Runs `ekips check` (command *Ekips: Check File*) |
+| `src/commands.ts`, `src/statusBar.ts`, `src/copilot.ts` | Commands, status bar, Copilot template command |
+| `src/settings.ts` | Typed settings access |
+| `package.nls*.json`, `l10n/` | UI translations (English / German) |
 | `src/checkOutput.ts` | Parses `ekips check` output (no `vscode` import, unit-tested) |
 | `src/binary.ts` | Resolves binary paths from settings / `PATH` (no `vscode` import) |
 | `syntaxes/ekips.tmLanguage.json` | TextMate grammar |
@@ -46,7 +49,7 @@
 | `snippets/ekips.code-snippets` | Snippets |
 | `templates/` | Files copied into student projects (Copilot instructions) |
 | `test/grammar/` | Grammar tests (`vscode-tmgrammar-test`) |
-| `test/unit/` | Mocha unit tests for pure modules |
+| `test/unit/` | `node --test` unit tests (pure modules, contributions, l10n, activation with a fake `vscode`) |
 | `docs/en`, `docs/de` | Documentation (bilingual) |
 
 ## Commands
