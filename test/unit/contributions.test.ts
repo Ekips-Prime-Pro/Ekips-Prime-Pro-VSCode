@@ -122,3 +122,24 @@ describe("language configuration", () => {
     assert.ok(dec.test("]);"));
   });
 });
+
+describe("copilot instructions template", () => {
+  const template = readFileSync(join(root, "templates/copilot-instructions.md"), "utf8");
+
+  it("mentions the entry point and every unit", () => {
+    assert.match(template, /async function main\(\)/);
+    for (const unit of ["mm", "cm", "deg", "°", "rot", "s", "ms", "%"]) {
+      assert.ok(template.includes(`\`${unit}\``), `unit ${unit}`);
+    }
+  });
+
+  it("only uses units of the language in its code examples", () => {
+    const code = [...template.matchAll(/```ts\n([\s\S]*?)```/g)].map((m) => m[1]).join("\n");
+    assert.ok(code.length > 0);
+    // Strip comments, then look for numbers followed by letters.
+    const withoutComments = code.replace(/\/\/.*$/gm, "");
+    const suffixes = [...withoutComments.matchAll(/(?<![\w.])\d+(?:\.\d+)?([A-Za-z]+)/g)].map((m) => m[1]);
+    const unknown = suffixes.filter((s) => !["mm", "cm", "deg", "rot", "s", "ms"].includes(s));
+    assert.deepEqual(unknown, []);
+  });
+});
