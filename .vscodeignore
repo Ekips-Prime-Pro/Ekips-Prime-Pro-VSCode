@@ -1,0 +1,14 @@
+.github/**
+.vscode/**
+docs/**
+node_modules/**
+out/**
+scripts/**
+src/**
+test/**
+**/*.map
+**/*.ts
+esbuild.mjs
+eslint.config.mjs
+tsconfig*.json
+CLAUDE.md
