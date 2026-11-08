@@ -1,0 +1,123 @@
+{
+  "Main function": {
+    "prefix": "main",
+    "description": "Entry point of every Ekips program: async function main()",
+    "body": [
+      "// The program starts here",
+      "async function main() {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "Function": {
+    "prefix": "function",
+    "description": "Function that returns a value right away",
+    "body": [
+      "function ${1:name}(${2:params}) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "Async function": {
+    "prefix": ["async function", "afunction"],
+    "description": "Async function: may use await inside (e.g. for robot movements)",
+    "body": [
+      "async function ${1:name}(${2:params}) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "For loop": {
+    "prefix": "for",
+    "description": "Repeat a fixed number of times",
+    "body": [
+      "for (let ${1:i} = 0; ${1:i} < ${2:4}; ${1:i}++) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "For-of loop": {
+    "prefix": ["forof", "for of"],
+    "description": "Go through every element of a list",
+    "body": [
+      "for (const ${1:item} of ${2:list}) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "If": {
+    "prefix": "if",
+    "description": "Do something only if a condition is true",
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "If / else": {
+    "prefix": ["ifelse", "if else"],
+    "description": "Do one thing or the other",
+    "body": [
+      "if (${1:condition}) {",
+      "\t$2",
+      "} else {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "While loop": {
+    "prefix": "while",
+    "description": "Repeat while a condition is true",
+    "body": [
+      "while (${1:condition}) {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "Drive until line": {
+    "prefix": ["driveuntilline", "drive until line"],
+    "description": "Drive at most a distance, but stop as soon as the color sensor sees a line (Promise.race + waitUntil)",
+    "body": [
+      "// Drive at most ${2:100cm}, but stop as soon as the sensor sees ${4|Black,White,Red,Green,Blue,Yellow,Azure,Violet|}.",
+      "await Promise.race([",
+      "\t${1:robot}.drive(${2:100cm}, ${3:40%}),",
+      "\twaitUntil(() => ${5:eye}.sees(Color.${4})),",
+      "]);",
+      "${1:robot}.stop();",
+      "$0"
+    ]
+  },
+  "Setup: motors and drive base": {
+    "prefix": ["setup", "drivebase"],
+    "description": "Setup block: two wheel motors, a drive base and an optional color sensor",
+    "body": [
+      "// Setup: what is plugged in where",
+      "const leftWheel = new Motor(Port.${1|A,B,C,D,E,F|});",
+      "const rightWheel = new Motor(Port.${2|B,A,C,D,E,F|});",
+      "const robot = new DriveBase(leftWheel, rightWheel, ${3:56mm}, ${4:112mm});",
+      "const eye = new ColorSensor(Port.${5|C,D,E,F,A,B|});",
+      "$0"
+    ]
+  },
+  "Wait": {
+    "prefix": "wait",
+    "description": "Wait for some time",
+    "body": ["await wait(${1:500ms});$0"]
+  },
+  "Wait until": {
+    "prefix": "waituntil",
+    "description": "Wait until a condition becomes true",
+    "body": ["await waitUntil(() => ${1:eye.sees(Color.Black)});$0"]
+  },
+  "Promise.all": {
+    "prefix": ["all", "parallel"],
+    "description": "Do several things at the same time and continue when ALL are finished",
+    "body": [
+      "await Promise.all([",
+      "\t${1:robot.drive(30cm)},",
+      "\t${2:arm.rotate(90deg)},",
+      "]);",
+      "$0"
+    ]
+  }
+}
