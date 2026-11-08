@@ -205,7 +205,7 @@
     "check-types": "tsc --noEmit",
     "watch": "node esbuild.mjs --watch",
     "lint": "eslint .",
-    "test": "npm run test:unit && npm run test:grammar",
+    "test": "node esbuild.mjs && npm run test:unit && npm run test:grammar",
     "test:unit": "tsc -p tsconfig.test.json && node --test \"out/test/unit/**/*.test.js\"",
     "package": "vsce package --no-dependencies",
     "test:grammar": "vscode-tmgrammar-test \"test/grammar/**/*.test.ekips\""
